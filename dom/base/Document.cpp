@@ -11191,6 +11191,7 @@ nsresult Document::CloneDocHelper(Document* clone) const {
     RefPtr<nsDOMNavigationTiming> timing =
         mTiming->CloneNavigationTime(nsDocShell::Cast(clone->GetDocShell()));
     clone->SetNavigationTiming(timing);
+    clone->SetSandboxFlags(mSandboxFlags);
     clone->SetCsp(mCSP);
   }
 
