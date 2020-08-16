@@ -94,6 +94,7 @@ exports.ORDERED_PROPS = [
   "states",
   "relations",
   "attributes",
+  "numericValues",
 ];
 
 // Accessible events (emitted by accessible front) that the accessible component

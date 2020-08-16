@@ -91,6 +91,10 @@ class AccessibleFront extends FrontClassWithSpec(accessibleSpec) {
     return this._form.attributes;
   }
 
+  get numericValues() {
+    return this._form.numericValues;
+  }
+
   get checks() {
     return this._form.checks;
   }

@@ -103,6 +103,32 @@ function getNodeDescription(node) {
 }
 
 /**
+ * Query interface for given nsIAccessible
+ * @param {nsIAccessible} acc
+ *        Accessible object to query
+ * @param {nsIAccessible} interface_
+ *        Interface to query
+ * @return {Boolean}
+ *        true if query success false otherwise
+ */
+function queryAccessibleInterface(acc, interface_) {
+  if (acc instanceof interface_) {
+    return true;
+  }
+
+  let success = false;
+
+  try {
+    acc.queryInterface(interface_);
+    success = true;
+  } catch (e) {
+    success = false;
+  }
+
+  return success;
+}
+
+/**
  * Get a snapshot of the nsIAccessible object including its subtree. None of the subtree
  * queried here is cached via accessible walker's refMap.
  * @param  {nsIAccessible} acc
@@ -142,6 +168,14 @@ function getSnapshot(acc, a11yService) {
     children.push(getSnapshot(child, a11yService));
   }
 
+  const numericValues = {};
+  if (queryAccessibleInterface(acc, Ci.nsIAccessibleValue)) {
+    numericValues.currentValue = acc.currentValue;
+    numericValues.minimumValue = acc.minimumValue;
+    numericValues.maximumValue = acc.maximumValue;
+    numericValues.minimumIncrement = acc.minimumIncrement;
+  }
+
   const { nodeType, nodeCssSelector } = getNodeDescription(acc.DOMNode);
   const snapshot = {
     name: acc.name,
@@ -157,6 +191,7 @@ function getSnapshot(acc, a11yService) {
     states,
     children,
     attributes,
+    numericValues,
   };
   const remoteFrame =
     acc.role === Ci.nsIAccessibleRole.ROLE_INTERNAL_FRAME &&
@@ -348,6 +383,19 @@ const AccessibleActor = ActorClassWithSpec(accessibleSpec, {
     return attributes;
   },
 
+  get numericValues() {
+    if (queryAccessibleInterface(this.rawAccessible, Ci.nsIAccessibleValue)) {
+      return {
+        currentValue: this.rawAccessible.currentValue,
+        minimumValue: this.rawAccessible.minimumValue,
+        maximumValue: this.rawAccessible.maximumValue,
+        minimumIncrement: this.rawAccessible.minimumIncrement,
+      };
+    }
+
+    return {};
+  },
+
   get bounds() {
     if (this.isDefunct) {
       return null;
@@ -472,6 +520,7 @@ const AccessibleActor = ActorClassWithSpec(accessibleSpec, {
       states: this.states,
       actions: this.actions,
       attributes: this.attributes,
+      numericValues: this.numericValues,
     };
   },
 

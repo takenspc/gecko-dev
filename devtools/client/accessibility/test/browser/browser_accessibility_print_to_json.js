@@ -71,6 +71,7 @@ const OOP_FRAME_DOCUMENT_SNAPSHOT = {
     "text-indent": "0px",
   },
   states: ["readonly", "focusable", "opaque", "enabled", "sensitive"],
+  numericValues: {},
   children: [
     {
       childCount: 1,
@@ -96,6 +97,7 @@ const OOP_FRAME_DOCUMENT_SNAPSHOT = {
         "text-indent": "0px",
       },
       states: ["selectable text", "opaque", "enabled", "sensitive"],
+      numericValues: {},
       children: [
         {
           childCount: 0,
@@ -112,6 +114,7 @@ const OOP_FRAME_DOCUMENT_SNAPSHOT = {
             "explicit-name": "true",
           },
           states: ["opaque", "enabled", "sensitive"],
+          numericValues: {},
           children: [],
         },
       ],
@@ -142,6 +145,7 @@ const OOP_FRAME_SNAPSHOT = {
     "text-indent": "0px",
   },
   states: ["focusable", "opaque", "enabled", "sensitive"],
+  numericValues: {},
   children: [OOP_FRAME_DOCUMENT_SNAPSHOT],
 };
 
@@ -168,6 +172,7 @@ const EXPECTED_SNAPSHOT = {
     "text-indent": "0px",
   },
   states: ["readonly", "focusable", "opaque", "enabled", "sensitive"],
+  numericValues: {},
   children: [OOP_FRAME_SNAPSHOT],
 };
 
