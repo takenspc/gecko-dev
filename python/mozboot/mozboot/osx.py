@@ -351,7 +351,6 @@ class OSXBootstrapper(BaseBootstrapper):
             'autoconf@2.13',
             'git',
             'gnu-tar',
-            'node',
             'terminal-notifier',
             'watchman',
         ]
