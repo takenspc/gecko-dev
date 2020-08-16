@@ -2145,7 +2145,7 @@ class Document : public nsINode,
     return AllowXULXBL();
   }
 
-  bool IsScriptEnabled();
+  bool IsScriptEnabled() const;
 
   /**
    * Returns true if this document was created from a nsXULPrototypeDocument.
@@ -3629,7 +3629,7 @@ class Document : public nsINode,
   // popup, a visible tab, a visible iframe ...e.t.c.
   bool IsExtensionPage() const;
 
-  bool HasScriptsBlockedBySandbox();
+  bool HasScriptsBlockedBySandbox() const;
 
   void ReportHasScrollLinkedEffect();
   bool HasScrollLinkedEffect() const { return mHasScrollLinkedEffect; }

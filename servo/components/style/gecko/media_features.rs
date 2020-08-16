@@ -516,6 +516,30 @@ fn eval_any_hover(device: &Device, query_value: Option<Hover>) -> bool {
     eval_hover_capabilities(query_value, all_pointer_capabilities(device))
 }
 
+/// Possible values for scripting media feature.
+/// https://drafts.csswg.org/mediaqueries-5/#scripting
+#[derive(Clone, Copy, Debug, FromPrimitive, Parse, ToCss)]
+#[repr(u8)]
+enum Scripting {
+    None,
+    // InitialOnly
+    Enabled,
+}
+
+/// https://drafts.csswg.org/mediaqueries-5/#scripting
+fn eval_scripting(device: &Device, query_value: Option<Scripting>) -> bool {
+    let scripting = unsafe { bindings::Gecko_MediaFeatures_Scripting(device.document()) };
+    let query_value = match query_value {
+        Some(v) => v,
+        None => return scripting,
+    };
+
+    match query_value {
+        Scripting::Enabled => scripting,
+        Scripting::None => !scripting,
+    }
+}
+
 fn eval_moz_is_glyph(
     device: &Device,
     query_value: Option<bool>,
@@ -779,6 +803,12 @@ pub static MEDIA_FEATURES: [MediaFeatureDescription; 55] = [
         atom!("any-hover"),
         AllowsRanges::No,
         keyword_evaluator!(eval_any_hover, Hover),
+        ParsingRequirements::empty(),
+    ),
+    feature!(
+        atom!("scripting"),
+        AllowsRanges::No,
+        keyword_evaluator!(eval_scripting, Scripting),
         ParsingRequirements::empty(),
     ),
     // Internal -moz-is-glyph media feature: applies only inside SVG glyphs.

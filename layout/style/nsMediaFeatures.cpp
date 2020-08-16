@@ -336,6 +336,10 @@ PointerCapabilities Gecko_MediaFeatures_AllPointerCapabilities(
                                 LookAndFeel::IntID::AllPointerCapabilities);
 }
 
+bool Gecko_MediaFeatures_Scripting(const Document* aDocument) {
+  return aDocument->IsScriptEnabled();
+}
+
 /* static */
 void nsMediaFeatures::InitSystemMetrics() {
   if (sSystemMetrics) return;

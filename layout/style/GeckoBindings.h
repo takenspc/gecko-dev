@@ -630,6 +630,8 @@ mozilla::PointerCapabilities Gecko_MediaFeatures_PrimaryPointerCapabilities(
 mozilla::PointerCapabilities Gecko_MediaFeatures_AllPointerCapabilities(
     const mozilla::dom::Document*);
 
+bool Gecko_MediaFeatures_Scripting(const mozilla::dom::Document*);
+
 float Gecko_MediaFeatures_GetDevicePixelRatio(const mozilla::dom::Document*);
 
 bool Gecko_MediaFeatures_HasSystemMetric(const mozilla::dom::Document*,
