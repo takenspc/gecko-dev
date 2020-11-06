@@ -81,21 +81,25 @@ exports.FILTERS = {
 };
 
 // Ordered accessible properties to be displayed by the accessible component.
-exports.ORDERED_PROPS = [
-  "name",
-  "role",
-  "actions",
-  "value",
-  "DOMNode",
-  "description",
-  "keyboardShortcut",
-  "childCount",
-  "indexInParent",
-  "states",
-  "relations",
-  "attributes",
-  "numericValues",
-];
+// Note: JavaScript Objects preserve order of keys
+exports.ORDERED_PROPS = {
+  name: { optional: false },
+  role: { optional: false },
+  actions: { optional: false },
+  value: { optional: false },
+  DOMNode: { optional: false },
+  description: { optional: false },
+  keyboardShortcut: { optional: false },
+  childCount: { optional: false },
+  indexInParent: { optional: false },
+  states: { optional: false },
+  relations: { optional: false },
+  attributes: { optional: false },
+  currentValue: { optional: true },
+  minimumValue: { optional: true },
+  maximumValue: { optional: true },
+  minimumIncrement: { optional: true },
+};
 
 // Accessible events (emitted by accessible front) that the accessible component
 // listens to for a current accessible.

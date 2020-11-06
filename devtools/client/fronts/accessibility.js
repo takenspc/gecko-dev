@@ -91,8 +91,20 @@ class AccessibleFront extends FrontClassWithSpec(accessibleSpec) {
     return this._form.attributes;
   }
 
-  get numericValues() {
-    return this._form.numericValues;
+  get currentValue() {
+    return this._form.currentValue;
+  }
+
+  get minimumValue() {
+    return this._form.minimumValue;
+  }
+
+  get maximumValue() {
+    return this._form.maximumValue;
+  }
+
+  get minimumIncrement() {
+    return this._form.minimumIncrement;
   }
 
   get checks() {

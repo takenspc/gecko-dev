@@ -524,7 +524,11 @@ const mapStateToProps = ({ details }) => {
   }
 
   const items = makeItemsForDetails(
-    ORDERED_PROPS.reduce((props, key) => {
+    Object.entries(ORDERED_PROPS).reduce((props, [key, { optional }]) => {
+      if (optional && accessibleFront[key] === undefined) {
+        return props;
+      }
+
       if (key === "DOMNode") {
         props.nodeFront = nodeFront;
       } else if (key === "relations") {

@@ -3,7 +3,7 @@
 
 "use strict";
 
-const TEST_URI = "<h1>Top level header</h1>";
+const TEST_URI = "<input type='range' value='4' min='-2' max='6' step='2'>";
 
 function getMenuItems(toolbox) {
   const menuDoc = toolbox.doc.defaultView.windowRoot.ownerGlobal.document;
@@ -73,48 +73,33 @@ const OOP_FRAME_DOCUMENT_SNAPSHOT = {
   states: ["readonly", "focusable", "opaque", "enabled", "sensitive"],
   children: [
     {
-      childCount: 1,
-      description: "",
-      indexInParent: 0,
-      keyboardShortcut: "",
-      name: "Top level header",
-      nodeCssSelector: "body > h1:nth-child(1)",
-      nodeType: 1,
-      role: "heading",
-      value: "",
+      name: null,
+      role: "slider",
       actions: [],
+      value: "4",
+      nodeCssSelector: "body > input:nth-child(1)",
+      nodeType: 1,
+      description: "",
+      keyboardShortcut: "",
+      childCount: 0,
+      indexInParent: 0,
+      states: ["focusable", "opaque", "enabled", "sensitive"],
+      children: [],
       attributes: {
-        display: "block",
-        formatting: "block",
-        level: "1",
-        "margin-bottom": "21.44px",
-        "margin-left": "0px",
-        "margin-right": "0px",
-        "margin-top": "0px",
-        tag: "h1",
+        "margin-left": "2px",
         "text-align": "start",
         "text-indent": "0px",
+        "margin-right": "2px",
+        tag: "input",
+        valuetext: "4",
+        "margin-top": "2px",
+        "margin-bottom": "2px",
+        display: "inline-block",
       },
-      states: ["selectable text", "opaque", "enabled", "sensitive"],
-      children: [
-        {
-          childCount: 0,
-          description: "",
-          indexInParent: 0,
-          keyboardShortcut: "",
-          name: "Top level header",
-          nodeCssSelector: "body > h1:nth-child(1)#text",
-          nodeType: 3,
-          role: "text leaf",
-          value: "",
-          actions: [],
-          attributes: {
-            "explicit-name": "true",
-          },
-          states: ["opaque", "enabled", "sensitive"],
-          children: [],
-        },
-      ],
+      currentValue: 4,
+      minimumValue: -2,
+      maximumValue: 6,
+      minimumIncrement: 2,
     },
   ],
 };
@@ -172,14 +157,14 @@ const EXPECTED_SNAPSHOT = {
 };
 
 addA11YPanelTask(
-  "Test print to JSON functionality.",
+  "Test print to JSON functionality for numeric values.",
   TEST_URI,
   async env => {
     const { doc } = env;
     await runA11yPanelTests(
       [
         {
-          desc: "Test the initial accessibility tree.",
+          desc: "Test the initial accessibility tree for numeric values.",
           expected: {
             tree: [
               {
@@ -200,7 +185,7 @@ addA11YPanelTask(
     await runA11yPanelTests(
       [
         {
-          desc: "Test expanded accessibility tree.",
+          desc: "Test expanded accessibility tree for numeric values.",
           expected: {
             tree: [
               {
@@ -223,11 +208,11 @@ addA11YPanelTask(
       env
     );
 
-    // Complete snapshot that includes OOP frame document (crossing process boundry).
+    // Complete snapshot that includes OOP frame document (crossing process boundary).
     await checkJSONSnapshotForRow(env, 0, EXPECTED_SNAPSHOT);
-    // Snapshot of an OOP frame (crossing process boundry).
+    // Snapshot of an OOP frame (crossing process boundary).
     await checkJSONSnapshotForRow(env, 1, OOP_FRAME_SNAPSHOT);
-    // Snapshot of an OOP frame document (not crossing process boundry).
+    // Snapshot of an OOP frame document (not crossing process boundary).
     await checkJSONSnapshotForRow(env, 2, OOP_FRAME_DOCUMENT_SNAPSHOT);
   },
   {

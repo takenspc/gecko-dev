@@ -306,11 +306,7 @@ function checkA11yFront(front, expected, expectedFront) {
       }
     }
 
-    if (
-      ["actions", "states", "attributes", "numericValues", "checks"].includes(
-        key
-      )
-    ) {
+    if (["actions", "states", "attributes", "checks"].includes(key)) {
       SimpleTest.isDeeply(
         front[key],
         expected[key],

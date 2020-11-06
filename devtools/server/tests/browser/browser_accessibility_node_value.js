@@ -52,12 +52,10 @@ add_task(async function() {
       display: "block",
       formatting: "block",
     },
-    numericValues: {
-      currentValue: 5,
-      minimumValue: 0,
-      maximumValue: 7,
-      minimumIncrement: 0,
-    },
+    currentValue: 5,
+    minimumValue: 0,
+    maximumValue: 7,
+    minimumIncrement: 0,
   });
 
   info("Snapshot");
@@ -89,7 +87,6 @@ add_task(async function() {
         states: ["opaque", "enabled", "sensitive"],
         children: [],
         attributes: { "explicit-name": "true" },
-        numericValues: {},
       },
     ],
     attributes: {
@@ -106,12 +103,10 @@ add_task(async function() {
       display: "block",
       formatting: "block",
     },
-    numericValues: {
-      currentValue: 5,
-      minimumValue: 0,
-      maximumValue: 7,
-      minimumIncrement: 0,
-    },
+    currentValue: 5,
+    minimumValue: 0,
+    maximumValue: 7,
+    minimumIncrement: 0,
   });
 
   await waitForA11yShutdown(parentAccessibility);

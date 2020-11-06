@@ -191,7 +191,7 @@ function getSnapshot(acc, a11yService) {
     states,
     children,
     attributes,
-    numericValues,
+    ...numericValues,
   };
   const remoteFrame =
     acc.role === Ci.nsIAccessibleRole.ROLE_INTERNAL_FRAME &&
@@ -384,16 +384,19 @@ const AccessibleActor = ActorClassWithSpec(accessibleSpec, {
   },
 
   get numericValues() {
-    if (queryAccessibleInterface(this.rawAccessible, Ci.nsIAccessibleValue)) {
-      return {
-        currentValue: this.rawAccessible.currentValue,
-        minimumValue: this.rawAccessible.minimumValue,
-        maximumValue: this.rawAccessible.maximumValue,
-        minimumIncrement: this.rawAccessible.minimumIncrement,
-      };
+    if (
+      this.isDefunct ||
+      !queryAccessibleInterface(this.rawAccessible, Ci.nsIAccessibleValue)
+    ) {
+      return {};
     }
 
-    return {};
+    return {
+      currentValue: this.rawAccessible.currentValue,
+      minimumValue: this.rawAccessible.minimumValue,
+      maximumValue: this.rawAccessible.maximumValue,
+      minimumIncrement: this.rawAccessible.minimumIncrement,
+    };
   },
 
   get bounds() {
@@ -520,7 +523,7 @@ const AccessibleActor = ActorClassWithSpec(accessibleSpec, {
       states: this.states,
       actions: this.actions,
       attributes: this.attributes,
-      numericValues: this.numericValues,
+      ...this.numericValues,
     };
   },
 

@@ -364,7 +364,7 @@ async function checkAuditState(store, expectedState) {
 async function checkSidebarState(store, expectedState) {
   info("Checking sidebar state.");
   await waitUntilState(store, ({ details }) => {
-    for (const key of ORDERED_PROPS) {
+    for (const key of Object.keys(ORDERED_PROPS)) {
       const expected = expectedState[key];
       if (expected === undefined) {
         continue;

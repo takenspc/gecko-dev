@@ -123,7 +123,6 @@ add_task(async function() {
       display: "inline-block",
       "explicit-name": "true",
     },
-    numericValues: {},
   });
 
   await waitForA11yShutdown(parentAccessibility);
